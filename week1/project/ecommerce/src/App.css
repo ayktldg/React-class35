@@ -13,6 +13,7 @@ ul {
 
  .category__list {
    display: flex;
+   flex-wrap: wrap;
  }
 
  .category__btn {
@@ -32,10 +33,6 @@ ul {
  .category__btn:focus {
   background-color: #9f9fa0;
  }
-
-/*  .category__btn--active {
-  background-color: #b8b8bc;
- } */
 
  .product__list {
   display: flex;
@@ -66,16 +63,15 @@ ul {
   white-space: nowrap;
 }
 
-@media (max-width:1000) {
+@media (max-width: 1000px) {
   .product__card {
     width: calc(50% - 16px);
   }
   }
 
-@media (max-width:600) {
+@media (max-width: 600px) {
   .product__card {
     width: 100%
-  
   }
 }
 

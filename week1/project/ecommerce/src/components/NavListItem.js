@@ -20,7 +20,3 @@ const NavListItem = ({ category, handleCategory }) => {
 };
 
 export default NavListItem;
-
-/* 
-<input type="radio" id={category} name={category} value={category} />
-      <label htmlFor={category}>{category}</label> */

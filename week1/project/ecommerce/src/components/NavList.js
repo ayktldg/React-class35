@@ -1,5 +1,4 @@
 import React from "react";
-/* import categories from "../fake-data/all-categories"; */
 import NavListItem from "./NavListItem";
 
 const NavList = ({ categories, handleCategory }) => {
