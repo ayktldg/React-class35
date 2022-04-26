@@ -1,29 +1,29 @@
-import "./App.css";
-import allProducts from "./fake-data/all-products";
-import categories from "./fake-data/all-categories";
-import NavList from "./components/NavList";
-import ProductList from "./components/ProductList";
+import styles from "./App.module.css";
+import NavList from "./components/NavList/NavList";
+import ProductList from "./components/ProductList/ProductList";
 import { useState } from "react";
 
 function App() {
-  const [products, setProducts] = useState(allProducts);
+  const [selectedCategory, setSelectedCategory] = useState();
+  const [activeCategory, setActiveCategory] = useState();
 
-  const handleCategory = (categoryName) => {
+  const onSelectCategory = (categoryName) => {
     const currentCategory = categoryName.replace("FAKE: ", "");
-    const filteredProducts = allProducts.filter(
-      (product) => product.category === currentCategory
-    );
-    setProducts(filteredProducts);
+    setSelectedCategory(currentCategory);
+    setActiveCategory(categoryName);
   };
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       <header>
         <h1>Products</h1>
-        <NavList categories={categories} handleCategory={handleCategory} />
+        <NavList
+          activeCategory={activeCategory}
+          onSelectCategory={onSelectCategory}
+        />
       </header>
       <main>
-        <ProductList products={products} />
+        <ProductList selectedCategory={selectedCategory} />
       </main>
     </div>
   );
