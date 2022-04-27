@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import fetchData from "../helpers/fetchData";
 import { Spinner } from "@chakra-ui/react";
+import styles from "../style/ProductDetail.module.css";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
@@ -28,21 +29,21 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="detail">
+    <div>
       {isLoading ? (
         <Spinner className="spinner" />
       ) : !errorMessage ? (
-        <div className="detail__container">
+        <div>
           <h1>{product.title}</h1>
-          <div className="detail__content">
-            <div className="detail__img__container">
+          <div className={styles.content}>
+            <div className={styles.imgContainer}>
               <img
-                className="detail__img"
+                className={styles.img}
                 src={product.image}
                 alt={product.title}
               />
             </div>
-            <p className="detail__desc">{product.description}</p>
+            <p className={styles.desc}>{product.description}</p>
           </div>
         </div>
       ) : (

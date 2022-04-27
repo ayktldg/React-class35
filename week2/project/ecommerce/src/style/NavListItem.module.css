@@ -1,0 +1,17 @@
+.btn {
+  border: none;
+  background-color: #efeff0;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: 700;
+  margin: 2px;
+  padding: 12px;
+}
+
+.btn:hover {
+  background-color: #d3d3d6;
+}
+
+.active {
+  background-color: #9f9fa0;
+}

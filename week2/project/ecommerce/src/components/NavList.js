@@ -1,6 +1,7 @@
 import React from "react";
 import NavListItem from "./NavListItem";
 import { useState, useEffect } from "react";
+import styles from "../style/NavList.module.css";
 
 const NavList = ({ fetchProducts }) => {
   const [categories, setCategories] = useState([]);
@@ -26,7 +27,7 @@ const NavList = ({ fetchProducts }) => {
     }
   };
   return (
-    <ul className="category__list">
+    <ul className={styles.list}>
       {!errorMessage ? (
         categories.map((category, index) => (
           <NavListItem
