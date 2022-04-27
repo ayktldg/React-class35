@@ -1,10 +1,12 @@
 import React from "react";
 import NavListItem from "./NavListItem";
 import { useState, useEffect } from "react";
+import fetchData from "../helpers/fetchData";
 import styles from "../style/NavList.module.css";
 
 const NavList = ({ fetchProducts }) => {
   const [categories, setCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState();
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -13,19 +15,17 @@ const NavList = ({ fetchProducts }) => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(
-        "https://fakestoreapi.com/products/categories"
-      );
-      if (!response.ok) {
-        const message = `An error has occured while getting categories: ${response.status}`;
-        throw new Error(message);
-      }
-      const categoryList = await response.json();
-      setCategories(categoryList);
+      const categories = await fetchData("/categories", "categories");
+      setCategories(categories);
     } catch (error) {
       setErrorMessage(error.message);
     }
   };
+
+  const handleActiveCategory = (category) => {
+    setActiveCategory(category);
+  };
+
   return (
     <ul className={styles.list}>
       {!errorMessage ? (
@@ -34,6 +34,8 @@ const NavList = ({ fetchProducts }) => {
             key={index}
             category={category}
             fetchProducts={fetchProducts}
+            handleActiveCategory={handleActiveCategory}
+            activeCategory={activeCategory}
           />
         ))
       ) : (
