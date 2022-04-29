@@ -1,0 +1,30 @@
+.content {
+  display: flex;
+  align-items: center;
+}
+
+.desc {
+  width: 50%;
+}
+
+.imgContainer {
+  width: 50%;
+  order: 1;
+}
+
+.img {
+  max-height: 80vh;
+}
+
+@media (max-width: 600px) {
+  .content {
+    flex-direction: column;
+  }
+  .desc {
+    width: 100%;
+  }
+  .imgContainer {
+    width: 100%;
+    order: 0;
+  }
+}
