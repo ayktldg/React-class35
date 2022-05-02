@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../style/NavListItem.module.css";
 
 const NavListItem = ({
   category,
-  fetchProducts,
   handleActiveCategory,
   activeCategory,
+  onChangeProductCategory,
 }) => {
   return (
     <li>
@@ -16,7 +16,7 @@ const NavListItem = ({
         type="button"
         value={category}
         onClick={(e) => {
-          fetchProducts(`/category/${e.target.value}`);
+          onChangeProductCategory(`/category/${e.target.value}`);
           handleActiveCategory(category);
         }}
       />

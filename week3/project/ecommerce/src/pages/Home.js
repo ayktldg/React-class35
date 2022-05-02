@@ -1,38 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import NavList from "../components/NavList";
 import ProductList from "../components/ProductList";
-import { useState, useEffect } from "react";
+import useFetch from "../hooks/useFetch";
 import { Spinner } from "@chakra-ui/react";
-import fetchData from "../helpers/fetchData";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [productCategory, setProductCategory] = useState("");
+  const { data: products, isLoading, errorMessage } = useFetch(productCategory);
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async (endpoint = "") => {
-    try {
-      setIsLoading(true);
-      const products = await fetchData(endpoint, "products");
-      setIsLoading(false);
-      setProducts(products);
-    } catch (error) {
-      setIsLoading(false);
-      setErrorMessage(error.message);
-    }
+  const onChangeProductCategory = (endpoint) => {
+    setProductCategory(endpoint);
   };
 
   return (
     <div>
       <Navbar />
       <main>
-        {" "}
-        <NavList fetchProducts={fetchProducts} />
+        <NavList onChangeProductCategory={onChangeProductCategory} />
         {isLoading ? (
           <Spinner className="spinner" />
         ) : !errorMessage ? (

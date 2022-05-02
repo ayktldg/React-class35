@@ -1,26 +1,15 @@
 import React from "react";
 import NavListItem from "./NavListItem";
-import { useState, useEffect } from "react";
-import fetchData from "../helpers/fetchData";
+import { useState } from "react";
 import styles from "../style/NavList.module.css";
+import useFetch from "../hooks/useFetch";
 
-const NavList = ({ fetchProducts }) => {
-  const [categories, setCategories] = useState([]);
+const NavList = ({ onChangeProductCategory }) => {
+  const { data: categories, errorMessage } = useFetch(
+    "/categories",
+    "categories"
+  );
   const [activeCategory, setActiveCategory] = useState();
-  const [errorMessage, setErrorMessage] = useState("");
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-    try {
-      const categories = await fetchData("/categories", "categories");
-      setCategories(categories);
-    } catch (error) {
-      setErrorMessage(error.message);
-    }
-  };
 
   const handleActiveCategory = (category) => {
     setActiveCategory(category);
@@ -33,8 +22,8 @@ const NavList = ({ fetchProducts }) => {
           <NavListItem
             key={index}
             category={category}
-            fetchProducts={fetchProducts}
             handleActiveCategory={handleActiveCategory}
+            onChangeProductCategory={onChangeProductCategory}
             activeCategory={activeCategory}
           />
         ))
