@@ -12,7 +12,7 @@ const ProductDetail = () => {
   const params = useParams();
   const { favouriteProductIds, addToFavourites, removeFromFavourites } =
     useContext(FavouritesContext);
-  console.log(favouriteProductIds);
+
   const {
     data: product,
     isLoading,

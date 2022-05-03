@@ -1,18 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import FavouritesContext from "../context/FavouritesContext";
-//import useFetch from "../hooks/useFetch";
+import ProductCard from "../components/ProductCard";
 
 const Favourites = () => {
-  const { favouriteProductIds, addToFavourites, removeFromFavourites } =
-    useContext(FavouritesContext);
+  const [products, setProducts] = useState([]);
+  const { favouriteProductIds } = useContext(FavouritesContext);
+
+  useEffect(() => {
+    fetchData().catch((err) => console.log(err));
+  }, [favouriteProductIds]);
+
+  const fetchData = async () => {
+    const data = await Promise.all(
+      favouriteProductIds.map(async (id) => {
+        const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+        if (!response.ok) {
+          const message = `An error has occured while getting data: ${response.status}`;
+          throw new Error(message);
+        }
+        return response;
+      })
+    );
+    const jsonData = await Promise.all(data.map((result) => result.json()));
+    setProducts(jsonData);
+  };
+
   return (
     <div>
       <Navbar />
-      <div>
-        Favourites
-        {favouriteProductIds.map((item) => (
-          <div>{item}</div>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <h2>Favourites</h2>
+        {products.map((product) => (
+          <ProductCard product={product} key={product.id} />
         ))}
       </div>
     </div>
