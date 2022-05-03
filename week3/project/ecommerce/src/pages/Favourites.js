@@ -30,7 +30,6 @@ const Favourites = () => {
     <div>
       <Navbar />
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <h2>Favourites</h2>
         {products.map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}
