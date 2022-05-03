@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-//import fetchData from "../helpers/fetchData";
 import useFetch from "../hooks/useFetch";
 import { Spinner } from "@chakra-ui/react";
 import styles from "../style/ProductDetail.module.css";
 import iconStyles from "../style/FavIcon.module.css";
 import { ReactComponent as HeartRegular } from "../assets/heart-regular.svg";
 import { ReactComponent as HeartSolid } from "../assets/heart-solid.svg";
+import FavouritesContext from "../context/FavouritesContext";
 
 const ProductDetail = () => {
   const params = useParams();
-
+  const { favouriteProductIds, addToFavourites, removeFromFavourites } =
+    useContext(FavouritesContext);
+  console.log(favouriteProductIds);
   const {
     data: product,
     isLoading,
     errorMessage,
   } = useFetch(`/${params.productId}`);
+
+  const favouritedMovie = favouriteProductIds.find((id) => id === product.id);
 
   return (
     <div>
@@ -31,11 +35,21 @@ const ProductDetail = () => {
                 src={product.image}
                 alt={product.title}
               />
-              <HeartRegular className={iconStyles.icon} />
-              <HeartSolid
-                className={iconStyles.icon}
-                style={{ marginTop: "1rem" }}
-              />
+              {favouritedMovie ? (
+                <HeartSolid
+                  className={iconStyles.icon}
+                  onClick={() => {
+                    removeFromFavourites(product.id);
+                  }}
+                />
+              ) : (
+                <HeartRegular
+                  className={iconStyles.icon}
+                  onClick={() => {
+                    addToFavourites(product.id);
+                  }}
+                />
+              )}
             </div>
             <p className={styles.desc}>{product.description}</p>
           </div>
