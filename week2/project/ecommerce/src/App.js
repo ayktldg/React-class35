@@ -1,27 +1,30 @@
 import "./App.css";
-import NavList from "./components/NavList";
-import ProductList from "./components/ProductList";
+import NavList from "./components/Navlist/NavList";
+import ProductList from "./components/ProductList/ProductList";
 import { useState, useEffect } from "react";
 import { Spinner } from "@chakra-ui/react";
 import fetchData from "./helpers/fetchData";
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
+  const [activeCategory, setActiveCategory] = useState();
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [activeCategory]);
 
-  const fetchProducts = async (endpoint = "") => {
+  const onSelectCategory = (category) => {
+    setActiveCategory(category);
+  };
+
+  const fetchProducts = async () => {
     try {
-      setIsLoading(true);
-      const products = await fetchData(endpoint, "products");
-      setIsLoading(false);
+      const products = activeCategory
+        ? await fetchData(`category/${activeCategory}`)
+        : await fetchData();
       setProducts(products);
     } catch (error) {
-      setIsLoading(false);
       setErrorMessage(error.message);
     }
   };
@@ -30,10 +33,13 @@ function App() {
     <div className="App">
       <header>
         <h1>Products</h1>
-        <NavList fetchProducts={fetchProducts} />
+        <NavList
+          onSelectCategory={onSelectCategory}
+          activeCategory={activeCategory}
+        />
       </header>
       <main>
-        {isLoading ? (
+        {!products ? (
           <Spinner className="spinner" />
         ) : !errorMessage ? (
           <ProductList products={products} />

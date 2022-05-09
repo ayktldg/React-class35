@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import fetchData from "../helpers/fetchData";
+import fetchData from "../../helpers/fetchData";
 import { Spinner } from "@chakra-ui/react";
-import styles from "../style/ProductDetail.module.css";
+import styles from "./ProductDetail.module.css";
 
 const ProductDetail = () => {
-  const [product, setProduct] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [product, setProduct] = useState();
+  const [errorMessage, setErrorMessage] = useState();
 
   const params = useParams();
 
@@ -17,20 +16,16 @@ const ProductDetail = () => {
 
   const fetchProduct = async () => {
     try {
-      setIsLoading(true);
-      const product = await fetchData(`/${params.productId}`);
-      console.log(product);
-      setIsLoading(false);
+      const product = await fetchData(`${params.productId}`);
       setProduct(product);
     } catch (error) {
-      setIsLoading(false);
       setErrorMessage(error.message);
     }
   };
 
   return (
     <div>
-      {isLoading ? (
+      {!product ? (
         <Spinner className="spinner" />
       ) : !errorMessage ? (
         <div>

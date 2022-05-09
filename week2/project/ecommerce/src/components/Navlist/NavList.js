@@ -1,13 +1,12 @@
 import React from "react";
-import NavListItem from "./NavListItem";
+import NavListItem from "../NavListItem/NavListItem";
 import { useState, useEffect } from "react";
-import fetchData from "../helpers/fetchData";
-import styles from "../style/NavList.module.css";
+import fetchData from "../../helpers/fetchData";
+import styles from "./NavList.module.css";
 
-const NavList = ({ fetchProducts }) => {
+const NavList = ({ onSelectCategory, activeCategory }) => {
   const [categories, setCategories] = useState([]);
-  const [activeCategory, setActiveCategory] = useState();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
     fetchCategories();
@@ -15,15 +14,11 @@ const NavList = ({ fetchProducts }) => {
 
   const fetchCategories = async () => {
     try {
-      const categories = await fetchData("/categories", "categories");
+      const categories = await fetchData("categories");
       setCategories(categories);
     } catch (error) {
       setErrorMessage(error.message);
     }
-  };
-
-  const handleActiveCategory = (category) => {
-    setActiveCategory(category);
   };
 
   return (
@@ -33,8 +28,7 @@ const NavList = ({ fetchProducts }) => {
           <NavListItem
             key={index}
             category={category}
-            fetchProducts={fetchProducts}
-            handleActiveCategory={handleActiveCategory}
+            onSelectCategory={onSelectCategory}
             activeCategory={activeCategory}
           />
         ))
