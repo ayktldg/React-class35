@@ -1,8 +1,8 @@
 import "./App.css";
-import Home from "./pages/Home";
-import ProductDetail from "./pages/ProductDetail";
+import Home from "./pages/Home/Home";
+import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Favourites from "./pages/Favourites";
+import Favourites from "./pages/Favourites/Favourites";
 import { FavouritesProvider } from "./context/FavouritesContext";
 
 function App() {

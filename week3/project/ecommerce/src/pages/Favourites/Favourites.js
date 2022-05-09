@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import FavouritesContext from "../context/FavouritesContext";
-import ProductCard from "../components/ProductCard";
+import Navbar from "../../components/Navbar/Navbar";
+import FavouritesContext from "../../context/FavouritesContext";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 const Favourites = () => {
   const [products, setProducts] = useState([]);

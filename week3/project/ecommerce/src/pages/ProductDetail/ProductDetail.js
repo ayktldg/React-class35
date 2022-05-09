@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 import { Spinner } from "@chakra-ui/react";
-import styles from "../style/ProductDetail.module.css";
-import iconStyles from "../style/FavIcon.module.css";
-import { ReactComponent as HeartRegular } from "../assets/heart-regular.svg";
-import { ReactComponent as HeartSolid } from "../assets/heart-solid.svg";
-import FavouritesContext from "../context/FavouritesContext";
+import styles from "./ProductDetail.module.css";
+import iconStyles from "../../style/FavIcon.module.css";
+import { ReactComponent as HeartRegular } from "../../assets/heart-regular.svg";
+import { ReactComponent as HeartSolid } from "../../assets/heart-solid.svg";
+import FavouritesContext from "../../context/FavouritesContext";
 
 const ProductDetail = () => {
   const params = useParams();
@@ -17,13 +17,13 @@ const ProductDetail = () => {
     data: product,
     isLoading,
     errorMessage,
-  } = useFetch(`/${params.productId}`);
+  } = useFetch(`${params.productId}`);
 
   const favouritedMovie = favouriteProductIds.find((id) => id === product.id);
 
   return (
     <div>
-      {isLoading ? (
+      {!isLoading ? (
         <Spinner className="spinner" />
       ) : !errorMessage ? (
         <div>

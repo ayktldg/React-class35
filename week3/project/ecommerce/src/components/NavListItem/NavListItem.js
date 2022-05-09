@@ -1,12 +1,7 @@
 import React from "react";
-import styles from "../style/NavListItem.module.css";
+import styles from "./NavListItem.module.css";
 
-const NavListItem = ({
-  category,
-  handleActiveCategory,
-  activeCategory,
-  onChangeProductCategory,
-}) => {
+const NavListItem = ({ category, activeCategory, onSelectCategory }) => {
   return (
     <li>
       <input
@@ -16,8 +11,7 @@ const NavListItem = ({
         type="button"
         value={category}
         onClick={(e) => {
-          onChangeProductCategory(`/category/${e.target.value}`);
-          handleActiveCategory(category);
+          onSelectCategory(e.target.value);
         }}
       />
     </li>

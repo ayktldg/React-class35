@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import styles from "../style/ProductCard.module.css";
-import iconStyles from "../style/FavIcon.module.css";
-import { ReactComponent as HeartRegular } from "../assets/heart-regular.svg";
-import { ReactComponent as HeartSolid } from "../assets/heart-solid.svg";
-import FavouritesContext from "../context/FavouritesContext";
+import styles from "./ProductCard.module.css";
+import iconStyles from "../../style/FavIcon.module.css";
+import { ReactComponent as HeartRegular } from "../../assets/heart-regular.svg";
+import { ReactComponent as HeartSolid } from "../../assets/heart-solid.svg";
+import FavouritesContext from "../../context/FavouritesContext";
 
 const ProductCard = ({ product }) => {
   const { favouriteProductIds, addToFavourites, removeFromFavourites } =

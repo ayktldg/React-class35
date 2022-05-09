@@ -3,16 +3,16 @@ import { useState, useEffect } from "react";
 const useFetch = (endpoint) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
-    fetchData(endpoint);
+    fetchData();
   }, [endpoint]);
 
-  const fetchData = async (endpoint) => {
+  const fetchData = async () => {
     try {
       setIsLoading(true);
-      const baseUrl = "https://fakestoreapi.com/products";
+      const baseUrl = "https://fakestoreapi.com/products/";
       const response = await fetch(`${baseUrl}${endpoint}`);
       if (!response.ok) {
         const message = `An error has occured while getting data: ${response.status}`;
@@ -27,7 +27,7 @@ const useFetch = (endpoint) => {
     }
   };
 
-  return { data, isLoading, errorMessage, fetchData };
+  return { data, isLoading, errorMessage };
 };
 
 export default useFetch;
