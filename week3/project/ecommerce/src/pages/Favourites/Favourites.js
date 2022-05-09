@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import FavouritesContext from "../../context/FavouritesContext";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import { Spinner } from "@chakra-ui/react";
 
 const Favourites = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState();
   const { favouriteProductIds } = useContext(FavouritesContext);
 
   useEffect(() => {
@@ -29,11 +30,17 @@ const Favourites = () => {
   return (
     <div>
       <Navbar />
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {products.map((product) => (
-          <ProductCard product={product} key={product.id} />
-        ))}
-      </div>
+      {!products ? (
+        <Spinner className="spinner" />
+      ) : favouriteProductIds.length !== 0 ? (
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {products.map((product) => (
+            <ProductCard product={product} key={product.id} />
+          ))}
+        </div>
+      ) : (
+        <h3>There is no favourite item</h3>
+      )}
     </div>
   );
 };

@@ -23,7 +23,7 @@ const ProductDetail = () => {
 
   return (
     <div>
-      {!isLoading ? (
+      {isLoading ? (
         <Spinner className="spinner" />
       ) : !errorMessage ? (
         <div>

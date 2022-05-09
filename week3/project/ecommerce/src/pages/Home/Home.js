@@ -6,18 +6,13 @@ import useFetch from "../../hooks/useFetch";
 import { Spinner } from "@chakra-ui/react";
 
 const Home = () => {
-  const [activeCategory, setActiveCategory] = useState("");
-  const [categoryEndPoint, setCategoryEndPoint] = useState("");
-  const {
-    data: products,
-    isLoading,
-    errorMessage,
-  } = useFetch(categoryEndPoint);
+  const [activeCategory, setActiveCategory] = useState();
+  const [endpoint, setEndpoint] = useState("");
+  const { data: products, isLoading, errorMessage } = useFetch(endpoint);
 
   const onSelectCategory = (category) => {
-    console.log("active category: ", category);
-    setCategoryEndPoint(`category/${category}`);
     setActiveCategory(category);
+    setEndpoint(`category/${category}`);
   };
 
   return (
@@ -28,7 +23,7 @@ const Home = () => {
           onSelectCategory={onSelectCategory}
           activeCategory={activeCategory}
         />
-        {!isLoading ? (
+        {isLoading ? (
           <Spinner className="spinner" />
         ) : !errorMessage ? (
           <ProductList products={products} />

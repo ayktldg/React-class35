@@ -3,13 +3,16 @@ import NavListItem from "../NavListItem/NavListItem";
 import { useState } from "react";
 import styles from "./NavList.module.css";
 import useFetch from "../../hooks/useFetch";
+import { Spinner } from "@chakra-ui/react";
 
 const NavList = ({ onSelectCategory, activeCategory }) => {
-  const { data: categories, errorMessage } = useFetch("categories");
+  const { data: categories, isLoading, errorMessage } = useFetch("categories");
 
   return (
     <ul className={styles.list}>
-      {!errorMessage ? (
+      {isLoading ? (
+        <Spinner className="spinner" />
+      ) : !errorMessage ? (
         categories.map((category, index) => (
           <NavListItem
             key={index}
